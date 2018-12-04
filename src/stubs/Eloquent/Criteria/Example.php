@@ -2,12 +2,23 @@
 
 namespace %namespaces.repositories%\Criteria;
 
-use Kurt\Repoist\Repositories\Criteria\CriterionInterface;
+use Simian\Repo\Repositories\Criteria\CriterionInterface;
 
+/**
+ * @class %criterion%
+ * @package %namespaces.repositories%\Criteria
+ */
 class %criterion% implements CriterionInterface
 {
+    /**
+     * @var string|mixed
+     */
     protected $field;
 
+    /**
+     * @constructor
+     * @param mixed $field
+     */
     public function __construct($field)
     {
         $this->field = $field;
@@ -15,7 +26,7 @@ class %criterion% implements CriterionInterface
 
     /**
      * Apply the query filtering.
-     * 
+     *
      * @param  \Illuminate\Database\Eloquent\Builder $entity
      * @return \Illuminate\Database\Eloquent\Builder
      */

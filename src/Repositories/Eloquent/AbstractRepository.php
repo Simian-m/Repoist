@@ -1,12 +1,16 @@
 <?php
 
-namespace Kurt\Repoist\Repositories\Eloquent;
+namespace Simian\Repo\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Kurt\Repoist\Exceptions\NoEntityDefined;
-use Kurt\Repoist\Repositories\Contracts\RepositoryInterface;
-use Kurt\Repoist\Repositories\Criteria\CriteriaInterface;
+use Simian\Repo\Exceptions\NoEntityDefined;
+use Simian\Repo\Repositories\Contracts\RepositoryInterface;
+use Simian\Repo\Repositories\Criteria\CriteriaInterface;
 
+/**
+ * @class   AbstractRepository
+ * @package Kurt\Repoist\Repositories\Eloquent
+ */
 abstract class AbstractRepository implements RepositoryInterface, CriteriaInterface
 {
     /**
@@ -29,6 +33,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
 
     /**
      * @param $id
+     *
      * @return mixed
      */
     public function find($id)
@@ -48,11 +53,12 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     /**
      * @param $column
      * @param $value
+     *
      * @return mixed
      */
     public function findWhere($column, $value, $paginate = null)
     {
-    	$query = $this->entity->where($column, $value);
+        $query = $this->entity->where($column, $value);
 
         return $this->processPagination($query, $paginate);
     }
@@ -60,6 +66,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     /**
      * @param $column
      * @param $value
+     *
      * @return mixed
      */
     public function findWhereFirst($column, $value)
@@ -80,21 +87,22 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
      */
     public function findWhereLike($columns, $value, $paginate = null)
     {
-    	$query = $this->entity;
+        $query = $this->entity;
 
         if (is_string($columns)) {
-        	$columns = [$columns];
+            $columns = [$columns];
         }
 
-		foreach ($columns as $column) {
-	        $query->orWhere($column, 'like', $value);
-		}
+        foreach ($columns as $column) {
+            $query->orWhere($column, 'like', $value);
+        }
 
-		return $this->processPagination($query, $paginate);
+        return $this->processPagination($query, $paginate);
     }
 
     /**
      * @param $perPage
+     *
      * @return mixed
      */
     public function paginate($perPage = 10)
@@ -104,6 +112,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
 
     /**
      * @param array $properties
+     *
      * @return mixed
      */
     public function create(array $properties)
@@ -112,8 +121,9 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
     }
 
     /**
-     * @param $id
+     * @param       $id
      * @param array $properties
+     *
      * @return mixed
      */
     public function update($id, array $properties)
@@ -123,6 +133,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
 
     /**
      * @param $id
+     *
      * @return mixed
      */
     public function delete($id)
@@ -132,6 +143,7 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
 
     /**
      * @param $criteria
+     *
      * @return mixed
      */
     public function withCriteria(...$criteria)
@@ -156,6 +168,6 @@ abstract class AbstractRepository implements RepositoryInterface, CriteriaInterf
 
     private function processPagination($query, $paginate)
     {
-    	return $paginate ? $query->paginate($paginate) : $query->get();
+        return $paginate ? $query->paginate($paginate) : $query->get();
     }
 }

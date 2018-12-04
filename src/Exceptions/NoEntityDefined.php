@@ -1,6 +1,6 @@
 <?php
 
-namespace Kurt\Repoist\Exceptions;
+namespace Simian\Repo\Exceptions;
 
 use Exception;
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace Kurt\Repoist\Commands;
+namespace Simian\Repo\Commands;
 
 use Illuminate\Support\Facades\Artisan;
 
-class MakeRepositoryCommand extends RepoistCommand
+class MakeRepositoryCommand extends RepositoryCommand
 {
     /**
      * The name and signature of the console command.
@@ -26,8 +26,8 @@ class MakeRepositoryCommand extends RepoistCommand
      * @var array
      */
     protected $stubs = [
-        'contract'   => __DIR__.'/../stubs/Contracts/ExampleRepository.php',
-        'repository' => __DIR__.'/../stubs/Eloquent/EloquentExampleRepository.php',
+        'contract' => __DIR__ . '/../stubs/Contracts/ExampleRepository.php',
+        'repository' => __DIR__ . '/../stubs/Eloquent/EloquentExampleRepository.php',
     ];
 
     /**
@@ -78,15 +78,15 @@ class MakeRepositoryCommand extends RepoistCommand
         $content = $this->fileManager->get($this->stubs['contract']);
 
         $replacements = [
-            '%namespaces.contracts%' => $this->appNamespace.$this->config('namespaces.contracts'),
-            '%modelName%'            => $this->modelName,
+            '%namespaces.contracts%' => $this->appNamespace . $this->config('namespaces.contracts'),
+            '%modelName%' => $this->modelName,
         ];
 
         $content = str_replace(array_keys($replacements), array_values($replacements), $content);
 
-        $fileName      = $this->modelName.'Repository';
-        $fileDirectory = app()->basePath().'/app/'.$this->config('paths.contracts');
-        $filePath      = $fileDirectory.$fileName.'.php';
+        $fileName = $this->modelName . 'Repository';
+        $fileDirectory = app()->basePath() . '/app/' . $this->config('paths.contracts');
+        $filePath = $fileDirectory . $fileName . '.php';
 
         if (!$this->fileManager->exists($fileDirectory)) {
             $this->fileManager->makeDirectory($fileDirectory, 0755, true);
@@ -107,7 +107,7 @@ class MakeRepositoryCommand extends RepoistCommand
 
         $this->line("The contract [{$fileName}] has been created.");
 
-        return [$this->config('namespaces.contracts').'\\'.$fileName, $fileName];
+        return [$this->config('namespaces.contracts') . '\\' . $fileName, $fileName];
     }
 
     /**
@@ -118,18 +118,18 @@ class MakeRepositoryCommand extends RepoistCommand
         $content = $this->fileManager->get($this->stubs['repository']);
 
         $replacements = [
-            '%contract%'                => $this->appNamespace.$contract,
-            '%contractName%'            => $contractName,
-            '%model%'                   => $this->model,
-            '%modelName%'               => $this->modelName,
-            '%namespaces.repositories%' => $this->appNamespace.$this->config('namespaces.repositories'),
+            '%contract%' => $this->appNamespace . $contract,
+            '%contractName%' => $contractName,
+            '%model%' => $this->model,
+            '%modelName%' => $this->modelName,
+            '%namespaces.repositories%' => $this->appNamespace . $this->config('namespaces.repositories'),
         ];
 
         $content = str_replace(array_keys($replacements), array_values($replacements), $content);
 
-        $fileName      = 'Eloquent'.$this->modelName.'Repository';
-        $fileDirectory = app()->basePath().'/app/'.$this->config('paths.repositories');
-        $filePath      = $fileDirectory.$fileName.'.php';
+        $fileName = 'Eloquent' . $this->modelName . 'Repository';
+        $fileDirectory = app()->basePath() . '/app/' . $this->config('paths.repositories');
+        $filePath = $fileDirectory . $fileName . '.php';
 
         // Check if the directory exists, if not create...
         if (!$this->fileManager->exists($fileDirectory)) {
@@ -155,7 +155,7 @@ class MakeRepositoryCommand extends RepoistCommand
      */
     protected function checkModel()
     {
-        $model = $this->appNamespace.$this->argument('model');
+        $model = $this->appNamespace . $this->argument('model');
 
         $this->model = str_replace('/', '\\', $model);
 

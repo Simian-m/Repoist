@@ -1,9 +1,13 @@
 <?php
 
-namespace Kurt\Repoist\Repositories\Eloquent\Criteria;
+namespace Simian\Repo\Repositories\Eloquent\Criteria;
 
-use Kurt\Repoist\Repositories\Criteria\CriterionInterface;
+use Simian\Repo\Repositories\Criteria\CriterionInterface;
 
+/**
+ * @class   EagerLoad
+ * @package Simian\Repo\Repositories\Eloquent\Criteria
+ */
 class EagerLoad implements CriterionInterface
 {
     /**
@@ -25,6 +29,7 @@ class EagerLoad implements CriterionInterface
      * Apply the query filtering.
      *
      * @param  \Illuminate\Database\Eloquent\Builder $entity
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function apply($entity)

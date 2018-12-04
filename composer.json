@@ -1,12 +1,16 @@
 {
-	"name": "ozankurt/repoist",
+	"name": "simian/repo",
 	"description": "Laravel ^5.6 repository generator.",
-	"keywords": ["laravel", "repository", "repoist", "database"],
+	"keywords": ["laravel", "repository", "repository pattern", "database"],
 	"license": "MIT",
 	"authors": [
 		{
 			"name": "Ozan Kurt",
 			"email": "hello@ozankurt.com"
+		},
+		{
+			"name": "Merijn",
+			"email": "merijn.venema@simian.nl"
 		}
 	],
 	"require": {
@@ -16,13 +20,13 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Kurt\\Repoist\\": "src/"
+			"Simian\\Repo\\": "src/"
 		}
 	},
 	"extra": {
 		"laravel": {
 			"providers": [
-				"Kurt\\Repoist\\RepoistServiceProvider"
+				"Simian\\Repo\\RepoistServiceProvider"
 			]
 		}
 	}

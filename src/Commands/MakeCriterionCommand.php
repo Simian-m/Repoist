@@ -1,8 +1,8 @@
 <?php
 
-namespace Kurt\Repoist\Commands;
+namespace Simian\Repo\Commands;
 
-class MakeCriterionCommand extends RepoistCommand
+class MakeCriterionCommand extends RepositoryCommand
 {
     /**
      * The name and signature of the console command.
@@ -44,21 +44,21 @@ class MakeCriterionCommand extends RepoistCommand
     protected function createCriterion()
     {
         $content = $this->fileManager->get(
-            __DIR__.'/../stubs/Eloquent/Criteria/Example.php'
+            __DIR__ . '/../stubs/Eloquent/Criteria/Example.php'
         );
 
         $criterion = $this->argument('criterion');
 
         $replacements = [
             '%namespaces.repositories%' => $this->config('namespaces.repositories'),
-            '%criterion%'               => $criterion,
+            '%criterion%' => $criterion,
         ];
 
         $content = str_replace(array_keys($replacements), array_values($replacements), $content);
 
-        $fileName      = $criterion;
-        $fileDirectory = app()->basePath().'/app/'.$this->config('paths.repositories').'Criteria';
-        $filePath      = $fileDirectory.'/'.$fileName.'.php';
+        $fileName = $criterion;
+        $fileDirectory = app()->basePath() . '/app/' . $this->config('paths.repositories') . 'Criteria';
+        $filePath = $fileDirectory . '/' . $fileName . '.php';
 
         if (!$this->fileManager->exists($fileDirectory)) {
             $this->fileManager->makeDirectory($fileDirectory, 0755, true);
